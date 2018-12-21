@@ -2,119 +2,219 @@ package seyedabdollahi.ir;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
-import seyedabdollahi.ir.Adapters.BaseAdapter;
-import seyedabdollahi.ir.EventBus.ChangeNumber;
-import seyedabdollahi.ir.Models.Base;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
-    private Base base;
+    private EditText binValue;
+    private EditText octValue;
+    private EditText decValue;
+    private EditText hexValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViews();
-        configBases();
+        configViews();
     }
 
     private void findViews(){
-        recyclerView = findViewById(R.id.recycler);
+        binValue = findViewById(R.id.bin_base_value);
+        octValue = findViewById(R.id.oct_base_value);
+        decValue = findViewById(R.id.dec_base_value);
+        hexValue = findViewById(R.id.hex_base_value);
     }
 
-    private void configBases(){
-        List<Base> bases = new ArrayList<>();
-        base = new Base();
-        base.setBase("BIN");
-        base.setMaxValue('1');
-        bases.add(base);
-        base = new Base();
-        base.setBase("OCT");
-        bases.add(base);
-        base = new Base();
-        base.setBase("DEC");
-        bases.add(base);
-        base = new Base();
-        base.setBase("HEX");
-        bases.add(base);
-
-        changeRecycle(bases);
+    private void configViews(){
+        binValue.addTextChangedListener(binTextWatcher);
+        octValue.addTextChangedListener(octTextWatcher);
+        decValue.addTextChangedListener(decTextWatcher);
+        hexValue.addTextChangedListener(hexTextWatcher);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ChangeNumber event) {
-        List<Base> bases = event.getBases();
-        bases.get(1).setValue("YES");
-        bases = computeBases(event.getBases() , event.getPosition());
-        changeRecycle(bases);
-    }
-
-    private void changeRecycle(List<Base> bases){
-        BaseAdapter baseAdapter = new BaseAdapter(bases);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        recyclerView.setAdapter(baseAdapter);
-    }
-
-    private List<Base> computeBases(List<Base> bases , int position){
-        String bin;
-        String oct;
+    private void computeBases(String value , String base){
+        String number = value;
+        String bin = "";
+        String oct = "";
         String dec = "";
-        String hex;
+        String hex = "";
+        int position = 0;
         Log.d("TAG" , "_______________________________");
-        Log.d("TAG" , "number: " + bases.get(position).getValue());
-        try {
-            switch (position){
-                case 0:{
-                    dec = Integer.toString(Integer.parseInt(bases.get(position).getValue() , 2));
-                    break;
+        Log.d("TAG" , "number: " + number);
+        if(value.equals("")){
+            removeTextWatcher();
+            binValue.setText("");
+            octValue.setText("");
+            decValue.setText("");
+            hexValue.setText("");
+            addTextWatcher();
+        }else {
+            try {
+                switch (base){
+                    case "BIN":{
+                        position = binValue.getSelectionStart();
+                        break;
+                    }
+                    case "OCT":{
+                        position = octValue.getSelectionStart();
+                        break;
+                    }
+                    case "DEC":{
+                        position = decValue.getSelectionStart();
+                        break;
+                    }
+                    case "HEX":{
+                        position = hexValue.getSelectionStart();
+                        break;
+                    }
                 }
-                case 1:{
-                    dec = Integer.toString(Integer.parseInt(bases.get(position).getValue() , 8));
-                    break;
+                switch (base){
+                    case "BIN":{
+                        dec = Integer.toString(Integer.parseInt(number , 2));
+                        break;
+                    }
+                    case "OCT":{
+                        dec = Integer.toString(Integer.parseInt(number , 8));
+                        break;
+                    }
+                    case "DEC":{
+                        dec = Integer.toString(Integer.parseInt(number , 10));
+                        break;
+                    }
+                    case "HEX":{
+                        dec = Integer.toString(Integer.parseInt(number , 16));
+                        break;
+                    }
                 }
-                case 2:{
-                    dec = Integer.toString(Integer.parseInt(bases.get(position).getValue() , 10));
-                    break;
+                bin = Integer.toBinaryString(Integer.parseInt(dec));
+                oct = Integer.toOctalString(Integer.parseInt(dec));
+                hex = Integer.toHexString(Integer.parseInt(dec));
+                removeTextWatcher();
+                binValue.setText(bin);
+                octValue.setText(oct);
+                decValue.setText(dec);
+                hexValue.setText(hex);
+                addTextWatcher();
+                switch (base){
+                    case "BIN":{
+                        binValue.setSelection(bin.length());
+                        break;
+                    }
+                    case "OCT":{
+                        octValue.setSelection(oct.length());
+                        break;
+                    }
+                    case "DEC":{
+                        decValue.setSelection(dec.length());
+                        break;
+                    }
+                    case "HEX":{
+                        hexValue.setSelection(hex.length());
+                        break;
+                    }
                 }
-                case 3:{
-                    dec = Integer.toString(Integer.parseInt(bases.get(position).getValue() , 16));
-                    break;
-                }
+                setBlackColor();
+            }catch (Exception e){
+                Log.d("TAG" , "error computeBases: " + e.toString());
+                setRedColor();
             }
-            Log.d("TAG" , "BASE10: " + dec);
-            Log.d("TAG" , "BASE2: " + Integer.toBinaryString(Integer.parseInt(dec)));
-            Log.d("TAG" , "BASE8: " + Integer.toHexString(Integer.parseInt(dec)));
-            Log.d("TAG" , "BASE16: " + Integer.toOctalString(Integer.parseInt(dec)));
-        }catch (Exception e){
-            Log.d("TAG" , "error computeBases");
         }
-        bases.get(0).setValue(Integer.toBinaryString(Integer.parseInt(dec)));
-        bases.get(1).setValue(Integer.toOctalString(Integer.parseInt(dec)));
-        bases.get(2).setValue(dec);
-        bases.get(3).setValue(Integer.toHexString(Integer.parseInt(dec)));
-        return bases;
     }
+
+    private void addTextWatcher(){
+        binValue.addTextChangedListener(binTextWatcher);
+        octValue.addTextChangedListener(octTextWatcher);
+        decValue.addTextChangedListener(decTextWatcher);
+        hexValue.addTextChangedListener(hexTextWatcher);
+    }
+
+    private void removeTextWatcher(){
+        binValue.removeTextChangedListener(binTextWatcher);
+        octValue.removeTextChangedListener(octTextWatcher);
+        decValue.removeTextChangedListener(decTextWatcher);
+        hexValue.removeTextChangedListener(hexTextWatcher);
+    }
+
+    private void setRedColor(){
+        binValue.setTextColor(getResources().getColor(R.color.red));
+        octValue.setTextColor(getResources().getColor(R.color.red));
+        decValue.setTextColor(getResources().getColor(R.color.red));
+        hexValue.setTextColor(getResources().getColor(R.color.red));
+    }
+
+    private void setBlackColor(){
+        binValue.setTextColor(getResources().getColor(R.color.black));
+        octValue.setTextColor(getResources().getColor(R.color.black));
+        decValue.setTextColor(getResources().getColor(R.color.black));
+        hexValue.setTextColor(getResources().getColor(R.color.black));
+    }
+
+    TextWatcher binTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            Log.d("TAG" , "position: " + binValue.getSelectionStart());
+            computeBases(binValue.getText().toString() , "BIN");
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+    TextWatcher octTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            computeBases(octValue.getText().toString() , "OCT");
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+    TextWatcher decTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            computeBases(decValue.getText().toString() , "DEC");
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+    TextWatcher hexTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            computeBases(hexValue.getText().toString() , "HEX");
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
 }

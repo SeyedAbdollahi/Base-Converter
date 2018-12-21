@@ -6,9 +6,116 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/bin_base_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="BIN"
+        app:layout_constraintTop_toTopOf="@id/bin_base_value"
+        app:layout_constraintBottom_toBottomOf="@id/bin_base_value"
+        app:layout_constraintRight_toLeftOf="@id/bin_base_value"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="@android:color/white"
+        android:background="@drawable/text_view_background"
+        android:layout_marginStart="5dp"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/bin_base_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/bin_base_txt"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:hint="BASE 2"
+        android:background="@drawable/edit_text_background" />
+
+    <TextView
+        android:id="@+id/oct_base_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="OCT"
+        app:layout_constraintTop_toTopOf="@id/oct_base_value"
+        app:layout_constraintBottom_toBottomOf="@id/oct_base_value"
+        app:layout_constraintRight_toLeftOf="@id/oct_base_value"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="@android:color/white"
+        android:background="@drawable/text_view_background"
+        android:layout_marginStart="5dp"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/oct_base_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/bin_base_value"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/oct_base_txt"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:hint="BASE 8"
+        android:background="@drawable/edit_text_background" />
+
+    <TextView
+        android:id="@+id/dec_base_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="DEC"
+        app:layout_constraintTop_toTopOf="@id/dec_base_value"
+        app:layout_constraintBottom_toBottomOf="@id/dec_base_value"
+        app:layout_constraintRight_toLeftOf="@id/dec_base_value"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="@android:color/white"
+        android:background="@drawable/text_view_background"
+        android:layout_marginStart="5dp"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/dec_base_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/oct_base_value"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/dec_base_txt"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:hint="BASE 10"
+        android:background="@drawable/edit_text_background" />
+
+    <TextView
+        android:id="@+id/hex_base_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="HEX"
+        app:layout_constraintTop_toTopOf="@id/hex_base_value"
+        app:layout_constraintBottom_toBottomOf="@id/hex_base_value"
+        app:layout_constraintRight_toLeftOf="@id/hex_base_value"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="@android:color/white"
+        android:background="@drawable/text_view_background"
+        android:layout_marginStart="5dp"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/hex_base_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/dec_base_value"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/hex_base_txt"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:hint="BASE 16"
+        android:background="@drawable/edit_text_background" />
 
 </android.support.constraint.ConstraintLayout>
