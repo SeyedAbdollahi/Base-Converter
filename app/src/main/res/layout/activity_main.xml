@@ -15,7 +15,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_weight="15"
+            android:layout_weight="18"
             android:layout_height="match_parent">
 
             <TextView
@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="BIN"
+                android:gravity="center"
                 android:textColor="@android:color/white"
                 android:background="@drawable/text_view_background"
                 android:layout_marginStart="5dp"
@@ -31,7 +32,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_weight="85"
+            android:layout_weight="82"
             android:layout_height="wrap_content">
 
             <EditText
@@ -58,7 +59,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_weight="15"
+            android:layout_weight="18"
             android:layout_height="match_parent">
 
             <TextView
@@ -66,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="OCT"
+                android:gravity="center"
                 android:textColor="@android:color/white"
                 android:background="@drawable/text_view_background"
                 android:layout_marginStart="5dp"
@@ -75,7 +77,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_weight="85"
+            android:layout_weight="82"
             android:layout_height="match_parent">
 
             <EditText
@@ -102,7 +104,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_weight="15"
+            android:layout_weight="18"
             android:layout_height="match_parent">
 
             <TextView
@@ -110,6 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="DEC"
+                android:gravity="center"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textColor="@android:color/white"
                 android:background="@drawable/text_view_background"
@@ -120,7 +123,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_weight="85"
+            android:layout_weight="82"
             android:layout_height="wrap_content">
 
             <EditText
@@ -145,7 +148,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_weight="15"
+            android:layout_weight="18"
             android:layout_height="match_parent">
 
             <TextView
@@ -153,6 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="HEX"
+                android:gravity="center"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textColor="@android:color/white"
                 android:background="@drawable/text_view_background"
@@ -163,7 +167,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_weight="85"
+            android:layout_weight="82"
             android:layout_height="wrap_content">
 
             <EditText
