@@ -1,13 +1,20 @@
 package seyedabdollahi.ir;
 
+import android.content.Context;
+import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
+
     private EditText binValue;
     private EditText octValue;
     private EditText decValue;
@@ -37,11 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void computeBases(String value , String base){
         String number = value;
-        String bin = "";
-        String oct = "";
+        String bin;
+        String oct;
         String dec = "";
-        String hex = "";
-        int position = 0;
+        String hex;
         Log.d("TAG" , "_______________________________");
         Log.d("TAG" , "number: " + number);
         if(value.equals("")){
@@ -53,24 +59,6 @@ public class MainActivity extends AppCompatActivity {
             addTextWatcher();
         }else {
             try {
-                switch (base){
-                    case "BIN":{
-                        position = binValue.getSelectionStart();
-                        break;
-                    }
-                    case "OCT":{
-                        position = octValue.getSelectionStart();
-                        break;
-                    }
-                    case "DEC":{
-                        position = decValue.getSelectionStart();
-                        break;
-                    }
-                    case "HEX":{
-                        position = hexValue.getSelectionStart();
-                        break;
-                    }
-                }
                 switch (base){
                     case "BIN":{
                         dec = Integer.toString(Integer.parseInt(number , 2));
@@ -217,4 +205,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    //Set font
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
 }
