@@ -2,7 +2,6 @@ package seyedabdollahi.ir;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,7 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText octValue;
     private EditText decValue;
     private EditText hexValue;
+    private TextView errorTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         octValue = findViewById(R.id.oct_base_value);
         decValue = findViewById(R.id.dec_base_value);
         hexValue = findViewById(R.id.hex_base_value);
+        errorTxt = findViewById(R.id.error_txt);
     }
 
     private void configViews(){
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             decValue.setText("");
             hexValue.setText("");
             addTextWatcher();
+            setBlackColor();
         }else {
             try {
                 switch (base){
@@ -130,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRedColor(){
+        errorTxt.setVisibility(View.VISIBLE);
         binValue.setTextColor(getResources().getColor(R.color.red));
         octValue.setTextColor(getResources().getColor(R.color.red));
         decValue.setTextColor(getResources().getColor(R.color.red));
@@ -137,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setBlackColor(){
+        errorTxt.setVisibility(View.INVISIBLE);
         binValue.setTextColor(getResources().getColor(R.color.black));
         octValue.setTextColor(getResources().getColor(R.color.black));
         decValue.setTextColor(getResources().getColor(R.color.black));
